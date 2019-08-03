@@ -20,6 +20,11 @@ router.get('/:id', validate.projectId, (req, res) => {
   res.status(200).json(req.project);
 });
 
+// GET actions by project ID
+router.get('/:id/actions', validate.projectId, (req, res) => {
+  res.status(200).json(req.project.actions);
+});
+
 // --- Get routes end ---
 
 module.exports = router;
