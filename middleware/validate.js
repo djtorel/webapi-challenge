@@ -47,8 +47,30 @@ const projectData = (req, res, next) => {
     : next(error(400, `'name' or 'description' fields are missing or empty`));
 };
 
+// Action data validator
+const actionData = (req, res, next) => {
+  if (
+    Object.entries(req.body).length === 0 &&
+    req.body.constructor === Object
+  ) {
+    next(error(400, 'missing project data'));
+  }
+  const { description, notes } = req.body;
+
+  if (!description) return next(error(400, 'missing description field'));
+  if (!notes) return next(error(400, 'missing notes field'));
+
+  if (description.length > 128)
+    return next(
+      error(400, 'description field must contain 128 characters or less')
+    );
+
+  next();
+};
+
 module.exports = {
   projectId,
   actionId,
   projectData,
+  actionData,
 };
