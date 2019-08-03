@@ -33,4 +33,22 @@ router.delete('/:id', validate.actionId, (req, res, next) => {
 
 // --- DELETE routes end
 
+// --- PUT routes start
+
+router.put(
+  '/:id',
+  [validate.actionId, validate.actionData],
+  (req, res, next) => {
+    const { id } = req.params;
+    const newAction = req.body;
+
+    actionDb
+      .update(id, newAction)
+      .then(async () => res.status(200).json(await actionDb.get(id)))
+      .catch(next);
+  }
+);
+
+// --- PUT routes end
+
 module.exports = router;
