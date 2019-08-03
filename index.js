@@ -4,7 +4,7 @@ const express = require('express');
 const { logger, errorHandler } = require('./middleware');
 
 // Import Routes
-const routes = require('./routes');
+const { projectRoutes, actionRoutes } = require('./routes');
 
 // Create server
 const server = express();
@@ -14,8 +14,8 @@ server.use(express.json());
 server.use(logger);
 
 // Use routes
-server.use('/projects', routes.projectRoutes);
-server.use('/actions', routes.actionRoutes);
+server.use('/projects', projectRoutes);
+server.use('/actions', actionRoutes);
 
 // Hook in error handler
 server.use(errorHandler);
