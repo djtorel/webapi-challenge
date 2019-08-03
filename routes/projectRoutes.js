@@ -64,4 +64,22 @@ router.delete('/:id', validate.projectId, (req, res, next) => {
 
 // --- DELETE routes end ---
 
+// --- PUT routes start ---
+
+router.put(
+  '/:id',
+  [validate.projectId, validate.projectData],
+  (req, res, next) => {
+    const { id } = req.params;
+    const newProject = req.body;
+
+    projectDb
+      .update(id, newProject)
+      .then(async () => res.status(200).json(await projectDb.get(id)))
+      .catch(next);
+  }
+);
+
+// --- PUT routes end ---
+
 module.exports = router;
