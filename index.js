@@ -8,6 +8,7 @@ const routes = require('./routes');
 
 // Create server
 const server = express();
+server.use(express.json());
 
 // Set logger middleware for entire application
 server.use(middleware.logger);
