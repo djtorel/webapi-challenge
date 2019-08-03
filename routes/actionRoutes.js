@@ -22,4 +22,15 @@ router.get('/:id', validate.actionId, (req, res) => {
 
 // --- Get routes end ---
 
+// --- DELETE routes start ---
+
+router.delete('/:id', validate.actionId, (req, res, next) => {
+  actionDb
+    .remove(req.params.id)
+    .then(() => res.status(200).json(req.action))
+    .catch(next);
+});
+
+// --- DELETE routes end
+
 module.exports = router;
