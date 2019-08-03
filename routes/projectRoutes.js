@@ -53,4 +53,15 @@ router.post(
 
 // --- POST routes end ---
 
+// --- DELETE routes start ---
+
+router.delete('/:id', validate.projectId, (req, res, next) => {
+  projectDb
+    .remove(req.params.id)
+    .then(() => res.status(200).json(req.project))
+    .catch(next);
+});
+
+// --- DELETE routes end ---
+
 module.exports = router;
