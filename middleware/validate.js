@@ -33,7 +33,22 @@ const actionId = (req, res, next) => {
   });
 };
 
+// Project data validator
+const projectData = (req, res, next) => {
+  if (
+    Object.entries(req.body).length === 0 &&
+    req.body.constructor === Object
+  ) {
+    next(error(400, 'missing project data'));
+  }
+  const { name, description } = req.body;
+  name && name.length > 0 && (description && description.length > 0)
+    ? next()
+    : next(error(400, `'name' or 'description' fields are missing or empty`));
+};
+
 module.exports = {
   projectId,
   actionId,
+  projectData,
 };
