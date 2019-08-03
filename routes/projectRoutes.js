@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 // Import project database helpers
 const projectDb = require('../data/helpers/projectModel');
+const actionDb = require('../data/helpers/actionModel');
 
 // Import middleware
 const { validate } = require('../middleware');
@@ -37,6 +38,18 @@ router.post('/', validate.projectData, (req, res, next) => {
     .then(project => res.status(201).json(project))
     .catch(next);
 });
+
+// POST create new action by project ID
+router.post(
+  '/:id/actions',
+  [validate.projectId, validate.actionData],
+  (req, res, next) => {
+    actionDb
+      .insert({ ...req.body, project_id: req.project.id })
+      .then(action => res.status(201).json(action))
+      .catch(next);
+  }
+);
 
 // --- POST routes end ---
 
