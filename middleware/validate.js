@@ -4,6 +4,7 @@ const projectDb = require('../data/helpers/projectModel');
 // Import utilities
 const { error } = require('../utils');
 
+// Project ID validator middleware
 const projectId = (req, res, next) => {
   const { id } = req.params;
 

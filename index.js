@@ -1,7 +1,7 @@
 const express = require('express');
 
 // Import middleware
-const middleware = require('./middleware');
+const { logger, errorHandler } = require('./middleware');
 
 // Import Routes
 const routes = require('./routes');
@@ -11,14 +11,14 @@ const server = express();
 server.use(express.json());
 
 // Set logger middleware for entire application
-server.use(middleware.logger);
+server.use(logger);
 
 // Use routes
 server.use('/projects', routes.projectRoutes);
 server.use('/actions', routes.actionRoutes);
 
 // Hook in error handler
-server.use(middleware.errorHandler);
+server.use(errorHandler);
 
 // Set port then tell server to listen on that port depending on evnironment
 // variables
