@@ -6,7 +6,8 @@ const projectDb = require('../data/helpers/projectModel');
 // Import middleware
 const { validate } = require('../middleware');
 
-// --- Get routes start ---
+// --- GET routes start ---
+
 // GET all projects
 router.get('/', (req, res, next) => {
   projectDb
@@ -25,6 +26,18 @@ router.get('/:id/actions', validate.projectId, (req, res) => {
   res.status(200).json(req.project.actions);
 });
 
-// --- Get routes end ---
+// --- GET routes end ---
+
+// --- POST routes start ---
+
+// POST create new project
+router.post('/', validate.projectData, (req, res, next) => {
+  projectDb
+    .insert(req.body)
+    .then(project => res.status(201).json(project))
+    .catch(next);
+});
+
+// --- POST routes end ---
 
 module.exports = router;
